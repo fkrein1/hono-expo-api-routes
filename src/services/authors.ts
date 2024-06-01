@@ -1,4 +1,5 @@
 import { client } from '../server/client';
+import { GetOneClientReq } from './types/authors';
 
 export const AuthorsServices = {
   async getClients() {
@@ -10,8 +11,8 @@ export const AuthorsServices = {
     return data;
   },
 
-  async getOneClient(id: string) {
-    const res = await client.api.authors[':id'].$get({ param: { id } });
+  async getOneClient(req: GetOneClientReq) {
+    const res = await client.api.authors[':id'].$get({ param: { id: req.param.id } });
     if (!res.ok) {
       throw new Error('server error');
     }
